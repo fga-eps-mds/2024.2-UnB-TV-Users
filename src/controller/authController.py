@@ -146,7 +146,7 @@ async def admin_setup(data: authSchema.AdminSetup, db: Session = Depends(get_db)
     return JSONResponse(status_code=200, content={"status": "success"})
 
 @auth.post('/super-admin-setup')
-async def admin_setup(data: authSchema.AdminSetup, db: Session = Depends(get_db)):
+async def super_admin_setup(data: authSchema.AdminSetup, db: Session = Depends(get_db)):
     user = userRepository.get_user_by_email(db, data.email)
     if not user:
       raise HTTPException(status_code=404, detail=errorMessages.USER_NOT_FOUND)
