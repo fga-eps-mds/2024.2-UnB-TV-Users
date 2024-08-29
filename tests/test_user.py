@@ -245,3 +245,12 @@ class TestUser:
     
     assert response.status_code == 404
     assert data['detail'] == errorMessages.USER_NOT_FOUND
+
+  def testuserupdate_role_superAdmin_invalid_email(self, setup):
+    headers={'Authorization': f'Bearer {test_auth.TestAuth.__admin_access_token}'}
+    response = client.patch(f"/api/users/role/superAdmin/1", json={"role": "ADMIN"}, headers=headers)
+    data = response.json()
+    print(f"Update Role SuperAdmin Invalid Email: {data}")
+
+    assert response.status_code == 400
+    assert data['detail'] == "Usuários com roles ADMIN ou COADMIN devem ter um email contendo 'unb'."
