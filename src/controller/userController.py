@@ -6,6 +6,7 @@ from constants import errorMessages
 from domain import userSchema
 from repository import userRepository
 from utils import security, enumeration
+from domain.userSchema import RoleUpdate
 
 from fastapi_filter import FilterDepends
 

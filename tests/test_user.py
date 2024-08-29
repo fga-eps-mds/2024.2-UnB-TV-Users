@@ -247,7 +247,7 @@ class TestUser:
     assert data['detail'] == errorMessages.USER_NOT_FOUND
 
   def testuserupdate_role_superAdmin_invalid_email(self, setup):
-    headers={'Authorization': f'Bearer {test_auth.TestAuth.__admin_access_token}'}
+    headers={'Authorization': f'Bearer {test_auth.TestAuth.__admin_access_token__}'}
     response = client.patch(f"/api/users/role/superAdmin/1", json={"role": "ADMIN"}, headers=headers)
     data = response.json()
     print(f"Update Role SuperAdmin Invalid Email: {data}")
