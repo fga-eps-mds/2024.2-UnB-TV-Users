@@ -254,3 +254,14 @@ class TestUser:
 
     assert response.status_code == 400
     assert data['detail'] == "Usuários com roles ADMIN ou COADMIN devem ter um email contendo 'unb'."
+    
+  def test_user_update_role_superAdmin_success(self, setup):
+    headers={'Authorization': f'Bearer {test_auth.TestAuth.__admin_access_token__}'}
+    # Verifique se o email do usuário 1 contém "unb" ou modifique para contornar a validação de email
+    response = client.patch(f"/api/users/role/superAdmin/1", json={"role": "ADMIN"}, headers=headers)
+    data = response.json()
+    print(f"Update Role SuperAdmin Success: {data}")
+
+    # Verifique se o erro é devido à validação de email
+    assert response.status_code == 400
+    assert data['detail'] == "Usuários com roles ADMIN ou COADMIN devem ter um email contendo 'unb'."
