@@ -32,3 +32,6 @@ class UserListFilter(Filter):
   class Constants(Filter.Constants):
     model = userModel.User
     search_model_fields = ["name", "email"]
+
+  class RoleUpdate(BaseModel):
+    role: str  
