@@ -37,7 +37,18 @@ def create_access_token(data: dict):
 def verify_token(token: str = Depends(oauth2_scheme)):
   try:
     payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    # print(payload["role"])
     return payload
+  except JWTError:
+    raise HTTPException(status_code=401, detail=errorMessages.INVALID_TOKEN)
+  
+def verify_token_admin(token: str = Depends(oauth2_scheme)):
+  try:
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    if payload["role"] == "ADMIN":
+      return payload
+    else:
+      raise HTTPException(status_code=401, detail=errorMessages.INVALID_TOKEN)
   except JWTError:
     raise HTTPException(status_code=401, detail=errorMessages.INVALID_TOKEN)
 

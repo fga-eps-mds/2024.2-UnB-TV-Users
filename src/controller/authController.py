@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 from constants import errorMessages
 from starlette.responses import JSONResponse
+from utils import security, enumeration
 
 from domain import userSchema, authSchema
 from repository import userRepository
@@ -130,7 +131,7 @@ async def validate_account(data: authSchema.AccountValidation, db: Session = Dep
 
  # cadastro da senha de admin / role do admin
 @auth.post('/admin-setup')
-async def admin_setup(data: authSchema.AdminSetup, db: Session = Depends(get_db)):
+async def admin_setup(data: authSchema.AdminSetup, db: Session = Depends(get_db), token: dict = Depends(security.verify_token_admin)):
     user = userRepository.get_user_by_email(db, data.email)
     if not user:
       raise HTTPException(status_code=404, detail=errorMessages.USER_NOT_FOUND)
@@ -146,7 +147,7 @@ async def admin_setup(data: authSchema.AdminSetup, db: Session = Depends(get_db)
     return JSONResponse(status_code=200, content={"status": "success"})
 
 @auth.post('/super-admin-setup')
-async def super_admin_setup(data: authSchema.AdminSetup, db: Session = Depends(get_db)):
+async def super_admin_setup(data: authSchema.AdminSetup, db: Session = Depends(get_db), token: dict = Depends(security.verify_token_admin)):
     user = userRepository.get_user_by_email(db, data.email)
     if not user:
       raise HTTPException(status_code=404, detail=errorMessages.USER_NOT_FOUND)
