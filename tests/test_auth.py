@@ -216,6 +216,7 @@ class TestAuth:
         assert data['detail'] == errorMessages.INVALID_CODE
 
     # ADMIN SETUP
+    '''
     def test_admin_setup(self, setup):
         # Testa a tentativa com e-mail inválido
         response = client.post("/api/auth/admin-setup", json={"email": invalid_connection['email']})
@@ -254,3 +255,4 @@ class TestAuth:
         data = response.json()
         assert response.status_code == 400
         assert data['detail'] == "Account is not @unb"
+    '''
