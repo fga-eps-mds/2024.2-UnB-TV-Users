@@ -91,7 +91,7 @@ def update_role(user_id: int, db: Session = Depends(get_db), token: dict = Depen
   return user
 
 @user.patch("/role/superAdmin/{user_id}", response_model=userSchema.User)
-def update_role_superAdmin(user_id: int, role_update: RoleUpdate, db: Session = Depends(get_db), token: dict = Depends(security.verify_token)):
+def update_role_super_admin(user_id: int, role_update: RoleUpdate, db: Session = Depends(get_db), token: dict = Depends(security.verify_token)):
     # Obtem email do usuario a partir do token.
     # Verifica se o usuário é ADMIN
     requesting_user = userRepository.get_user_by_email(db, email=token['email'])
