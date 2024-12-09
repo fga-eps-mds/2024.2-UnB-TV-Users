@@ -12,7 +12,7 @@ load_dotenv()
 
 # Variáveis globais ao repositório
 OWNER = "fga-eps-mds"
-REPO = "2024.1-UnB-TV-Users"
+REPO = "2024.2-UnB-TV-Users"
 TODAY = datetime.now()
 
 # Configurar as variáveis de ambiente
@@ -88,7 +88,7 @@ def create_release():
 
 if __name__ == '__main__':
 
-    REPO = "2024.1-UnB-TV-Users"
+    REPO = "2024.2-UnB-TV-Users"
 
     _, tag = create_release()
 
